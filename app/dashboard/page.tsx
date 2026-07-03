@@ -1,5 +1,6 @@
 "use client";
 
+import DashboardSidebar from "@/components/DashboardSidebar";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -33,27 +34,29 @@ export default function Dashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 flex items-center justify-center">
-      <div className="bg-white rounded-xl shadow-lg p-10 w-[500px]">
+    <div className="flex">
+      <DashboardSidebar />
+
+      <main className="flex-1 bg-slate-100 min-h-screen p-10">
         <h1 className="text-4xl font-bold text-blue-600">
-          Welcome to Axora
+          Welcome to Axora 🚀
         </h1>
 
-        <p className="mt-5">
+        <p className="mt-5 text-gray-600">
           Logged in as:
         </p>
 
-        <p className="font-semibold text-blue-600">
+        <p className="font-semibold text-blue-600 mb-8">
           {user.email}
         </p>
 
         <button
           onClick={logout}
-          className="mt-8 w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg"
+          className="bg-red-600 hover:bg-red-700 text-white px-5 py-3 rounded-lg"
         >
           Logout
         </button>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
