@@ -1,58 +1,72 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Package, Building2, Users, Settings } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  Home,
+  Building2,
+  Package,
+  Users,
+  Settings,
+} from "lucide-react";
 
 export default function DashboardSidebar() {
+  const pathname = usePathname();
+
+  const menuItems = [
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: Home,
+    },
+    {
+      name: "Company",
+      href: "/dashboard/company",
+      icon: Building2,
+    },
+    {
+      name: "Products",
+      href: "/dashboard/products",
+      icon: Package,
+    },
+    {
+      name: "Buyers",
+      href: "/dashboard/buyers",
+      icon: Users,
+    },
+    {
+      name: "Settings",
+      href: "/dashboard/settings",
+      icon: Settings,
+    },
+  ];
+
   return (
-    <aside className="w-64 bg-slate-900 text-white min-h-screen p-6">
+    <aside className="w-64 min-h-screen bg-slate-900 text-white p-6">
 
       <h1 className="text-3xl font-bold text-blue-400 mb-10">
         Axora
       </h1>
 
-      <nav className="space-y-3">
+      <nav className="space-y-2">
+        {menuItems.map((item) => {
+          const Icon = item.icon;
 
-        <Link
-          href="/dashboard"
-          className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800"
-        >
-          <Home size={20} />
-          Dashboard
-        </Link>
-
-        <Link
-          href="/products"
-          className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800"
-        >
-          <Package size={20} />
-          Products
-        </Link>
-
-        <Link
-          href="/manufacturers"
-          className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800"
-        >
-          <Building2 size={20} />
-          Manufacturers
-        </Link>
-
-        <Link
-          href="/buyers"
-          className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800"
-        >
-          <Users size={20} />
-          Buyers
-        </Link>
-
-        <Link
-          href="/settings"
-          className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800"
-        >
-          <Settings size={20} />
-          Settings
-        </Link>
-
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 p-3 rounded-lg transition ${
+                pathname === item.href
+                  ? "bg-blue-600"
+                  : "hover:bg-slate-800"
+              }`}
+            >
+              <Icon size={20} />
+              {item.name}
+            </Link>
+          );
+        })}
       </nav>
 
     </aside>
